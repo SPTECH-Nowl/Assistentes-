@@ -19,14 +19,9 @@ if [ $? -eq 0 ]; then
     clear
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Pacotes atualizados!"
     # Navega até o diretório Desktop
-    cd /home/urubu100/Desktop
+    cd /home/Desktop
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Diretório Desktop acessado!"
     sleep 2
-    echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Agora iremos baixar nosso arquivo JAR..."
-    # Baixa o arquivo JAR
- curl -LO https://github.com/SPTECH-Nowl/SistemaJava/raw/main/src/main/java/target/sistema-nowl-1.0-jar-with-dependencies.jar
-
-    echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
     sleep 2
     # Executa o arquivo JAR
     java -jar sistema-nowl-1.0-jar-with-dependencies.jar
