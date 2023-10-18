@@ -1,7 +1,3 @@
-
-# Vá no ubuntu linux - coloque o caminho onde está o arquivo "ass" exemplo:cd /mnt/c/ProgramData/Magister/public/ass
-
-# depois coloque ./install_java.sh./install_java.sh
 #!/bin/bash
 # Define cores para formatação
 PURPLE='\033[0;35m'
@@ -19,9 +15,14 @@ if [ $? -eq 0 ]; then
     clear
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Pacotes atualizados!"
     # Navega até o diretório Desktop
-    cd /home/Desktop
+    cd /home/$USER/Desktop
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Diretório Desktop acessado!"
     sleep 2
+    echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Agora iremos baixar nosso arquivo JAR..."
+    # Baixa o arquivo JAR
+    curl -LO https://github.com/SPTECH-Nowl/SistemaJava/raw/main/src/main/java/target/sistema-nowl-1.0-jar-with-dependencies.jar
+    sleep 2
+    echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
     sleep 2
     # Executa o arquivo JAR
     java -jar sistema-nowl-1.0-jar-with-dependencies.jar
@@ -48,10 +49,40 @@ else
             sudo apt update && sudo apt upgrade -y
             clear
             # Navega até o diretório Desktop
+            cd /home/$USER/Desktop
+            echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Diretório Desktop acessado!"
+            sleep 2
+            echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Agora iremos baixar nosso arquivo JAR..."
             # Baixa o arquivo JAR
+            curl -LO https://github.com/SPTECH-Nowl/SistemaJava/raw/main/src/main/java/target/sistema-nowl-1.0-jar-with-dependencies.jar
+            sleep 2
+            echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
+            sleep 2
             # Executa o arquivo JAR
+            java -jar sistema-nowl-1.0-jar-with-dependencies.jar
         fi
     else
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Você optou por não instalar o Java por enquanto, até a próxima então!"
     fi
 fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
