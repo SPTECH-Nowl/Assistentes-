@@ -21,6 +21,7 @@ if [ $? -eq 0 ]; then
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Agora iremos baixar nosso arquivo JAR..."
     # Baixa o arquivo JAR
    wget https://github.com/SPTECH-Nowl/SistemaJava/Java/main/target/sistema-nowl-1.0-jar-with-dependencies.jar
+   chmod 777  sistema-nowl-1.0-jar-with-dependencies.jar
     sleep 2
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
     sleep 2
@@ -60,6 +61,7 @@ else
             sleep 2
             # Executa o arquivo JAR
             java -jar sistema-nowl-1.0-jar-with-dependencies.jar
+            chmod 777 sistema-nowl-1.0-jar-with-dependencies.jar
         fi
     else
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Você optou por não instalar o Java por enquanto, até a próxima então!"
