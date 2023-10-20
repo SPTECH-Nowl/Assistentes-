@@ -20,7 +20,7 @@ if [ $? -eq 0 ]; then
     sleep 2
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Agora iremos baixar nosso arquivo JAR..."
     # Baixa o arquivo JAR
-   wget https://github.com/SPTECH-Nowl/SistemaJava/Java/main/sistemaJava/target/sistema-nowl-1.0-jar-with-dependencies.jar
+   wget https://github.com/SPTECH-Nowl/SistemaJava/Java/main//target/sistema-nowl-1.0-jar-with-dependencies.jar
     sleep 2
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
     sleep 2
@@ -54,7 +54,7 @@ else
             sleep 2
             echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Agora iremos baixar nosso arquivo JAR..."
             # Baixa o arquivo JAR
-            wget https://github.com/SPTECH-Nowl/SistemaJava/Java/main/sistemaJava/target/sistema-nowl-1.0-jar-with-dependencies.jar
+            wget https://github.com/SPTECH-Nowl/SistemaJava/Java/main//target/sistema-nowl-1.0-jar-with-dependencies.jar
             sleep 2
             echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
             sleep 2
