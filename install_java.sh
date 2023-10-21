@@ -5,7 +5,7 @@ NC='\033[0m'
 VERSAO=17
 echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Olá usuário, serei seu assistente para instalação do Java!"
 echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Verificando se você possui o Java instalado na sua máquina!"
-sleep 2
+sleep 7
 # Verifica se o Java está instalado
 java -version
 if [ $? -eq 0 ]; then
@@ -17,14 +17,14 @@ if [ $? -eq 0 ]; then
     # Navega até o diretório Desktop
     cd /home/$USER/Desktop
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Diretório Desktop acessado!"
-    sleep 2
+    sleep 7
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Agora iremos baixar nosso arquivo JAR..."
     # Baixa o arquivo JAR
    wget https://github.com/SPTECH-Nowl/SistemaJava/Java/main/target/sistema-nowl-1.0-jar-with-dependencies.jar
    chmod 777  sistema-nowl-1.0-jar-with-dependencies.jar
-    sleep 2
+    sleep 7
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
-    sleep 2
+    sleep 7
     # Executa o arquivo JAR
     java -jar sistema-nowl-1.0-jar-with-dependencies.jar
 else
@@ -34,11 +34,11 @@ else
     if [ "$inst" == "S" ]; then
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Ok! Você decidiu instalar o Java na máquina, uhul!"
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Adicionando o repositório!"
-        sleep 2
+        sleep 7
         sudo add-apt-repository ppa:linuxuprising/java
         clear
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Atualizando os pacotes... Quase acabando."
-        sleep 2
+        sleep 7
         sudo apt update -y
         clear
         if [ $VERSAO -eq 17 ]; then
@@ -52,13 +52,13 @@ else
             # Navega até o diretório Desktop
             cd /home/$USER/Desktop
             echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Diretório Desktop acessado!"
-            sleep 2
+            sleep 7
             echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Agora iremos baixar nosso arquivo JAR..."
             # Baixa o arquivo JAR
             wget https://github.com/SPTECH-Nowl/SistemaJava/Java/main/target/sistema-nowl-1.0-jar-with-dependencies.jar
-            sleep 2
+            sleep 7
             echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
-            sleep 2
+            sleep 7
             # Executa o arquivo JAR
             java -jar sistema-nowl-1.0-jar-with-dependencies.jar
             chmod 777 sistema-nowl-1.0-jar-with-dependencies.jar
