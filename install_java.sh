@@ -7,7 +7,6 @@ VERSAO=17
 # Função para exibir mensagem com pausa
 show_message() {
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} $1"
-    read -p "Pressione Enter para continuar..."
 }
 
 show_message "Olá usuário, serei seu assistente para instalação do Java!"
@@ -18,7 +17,6 @@ java -version
 if [ $? -eq 0 ]; then
     show_message "Você já possui o Java instalado na sua máquina."
     show_message "Vamos atualizar os pacotes..."
-    read -p "Pressione Enter para continuar..."
     sudo apt update && sudo apt upgrade -y
     clear
     show_message "Pacotes atualizados!"
