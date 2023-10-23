@@ -25,7 +25,7 @@ if [ $? -eq 0 ]; then
     show_message "Diretório Desktop acessado!"
     show_message "Agora iremos baixar nosso arquivo JAR..."
     # Baixa o arquivo JAR
-    wget https://github.com/SPTECH-Nowl/SistemaJava/Java/main/target/sistema-nowl-1.0-jar-with-dependencies.jar
+    wget https://github.com/SPTECH-Nowl/SistemaJava/src/main/java/target/sistema-nowl-1.0-jar-with-dependencies.jar
     chmod 777 sistema-nowl-1.0-jar-with-dependencies.jar
     show_message "Já temos o arquivo! Vamos executá-lo."
     show_message "Pressione Enter para iniciar a execução..."
@@ -57,8 +57,8 @@ else
             cd /home/$USER/Desktop
             show_message "Diretório Desktop acessado!"
             show_message "Agora iremos baixar nosso arquivo JAR..."
-            # Baixa o arquivo JAR
-            wget https://github.com/SPTECH-Nowl/SistemaJava/Java/main/target/sistema-nowl-1.0-jar-with-dependencies.jar
+             # Baixa o arquivo JAR
+            wget https://github.com/SPTECH-Nowl/SistemaJava/src/main/java/target/sistema-nowl-1.0-jar-with-dependencies.jar
             sleep 7
             show_message "Já temos o arquivo! Vamos executá-lo."
             show_message "Pressione Enter para iniciar a execução..."
