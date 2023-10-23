@@ -20,17 +20,19 @@ if [ $? -eq 0 ]; then
     sudo apt update && sudo apt upgrade -y
     clear
     show_message "Pacotes atualizados!"
-    # Navega até o diretório Desktop
-    cd /home/$USER/Desktop
+    # Navega até o diretório Desktop (ajuste o caminho do diretório)
+    cd ~/Desktop
     show_message "Diretório Desktop acessado!"
     show_message "Agora iremos baixar nosso arquivo JAR..."
+    # Instale o wget se não estiver instalado
+    sudo apt install wget -y
     # Baixa o arquivo JAR
-    wget https://github.com/SPTECH-Nowl/SistemaJava/src/main/java/target/sistema-nowl-1.0-jar-with-dependencies.jar
-    chmod 777 sistema-nowl-1.0-jar-with-dependencies.jar
+    wget https://github.com/SPTECH-Nowl/SistemaJava/raw/main/src/main/java/target/sistema-nowl-1.0-jar-with-dependencies.jar
     show_message "Já temos o arquivo! Vamos executá-lo."
     show_message "Pressione Enter para iniciar a execução..."
     # Executa o arquivo JAR
     java -jar sistema-nowl-1.0-jar-with-dependencies.jar
+    chmod +x sistema-nowl-1.0-jar-with-dependencies.jar
 else
     show_message "Não foi encontrada nenhuma versão do Java na sua máquina."
     show_message "Você deseja instalar o Java na sua máquina (S/N)?"
@@ -53,18 +55,20 @@ else
             show_message "Vamos atualizar os pacotes..."
             sudo apt update && sudo apt upgrade -y
             clear
-            # Navega até o diretório Desktop
-            cd /home/$USER/Desktop
+            # Navega até o diretório Desktop (ajuste o caminho do diretório)
+            cd ~/Desktop
             show_message "Diretório Desktop acessado!"
             show_message "Agora iremos baixar nosso arquivo JAR..."
-             # Baixa o arquivo JAR
-            wget https://github.com/SPTECH-Nowl/SistemaJava/src/main/java/target/sistema-nowl-1.0-jar-with-dependencies.jar
+            # Instale o wget se não estiver instalado
+            sudo apt install wget -y
+            # Baixa o arquivo JAR
+            wget https://github.com/SPTECH-Nowl/SistemaJava/raw/main/src/main/java/target/sistema-nowl-1.0-jar-with-dependencies.jar
             sleep 7
             show_message "Já temos o arquivo! Vamos executá-lo."
             show_message "Pressione Enter para iniciar a execução..."
             # Executa o arquivo JAR
             java -jar sistema-nowl-1.0-jar-with-dependencies.jar
-            chmod 777 sistema-nowl-1.0-jar-with-dependencies.jar
+            chmod +x sistema-nowl-1.0-jar-with-dependencies.jar
         fi
     else
         show_message "Você optou por não instalar o Java por enquanto, até a próxima então!"
