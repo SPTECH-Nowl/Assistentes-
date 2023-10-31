@@ -33,8 +33,10 @@ installDockerAndMySQL() {
             echo "Docker instalado com sucesso e container criado com sucesso!"
             sleep 2
             echo "Agora iremos criar as tabelas no banco de dados"
-            sleep 2
-            sudo docker exec -i MagisterNowl mysql -uroot -paluno magister < script.sql
+            sleep 2 
+            mysql
+            sudo docker exec -i MagisterNowl sudo mysql magister < script.sql
+            
             echo "Tabelas criadas com sucesso!"
             echo "Tudo configurado com sucesso!"
         else
@@ -62,12 +64,13 @@ installJavaAndRunApplication() {
         sleep 2
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Agora iremos baixar nosso arquivo JAR..."
         # Baixa o arquivo JAR
-        wget https://github.com/SPTECH-Nowl/SistemaWill/Java/main/sistemaJava/target/sistema-will-1.0-jar-with-dependencies.jar
+        git clone https://github.com/SPTECH-Nowl/SistemaWill.git
         sleep 2
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
         sleep 2
         # Executa o arquivo JAR
-        java -jar sistema-will-1.0-jar-with-dependencies.jar
+         cd SistemaWill/src/main/java/target
+              java -jar sistema-will-1.0-jar-with-dependencies.jar
     else
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Não foi encontrada nenhuma versão do Java na sua máquina, mas iremos resolver isso!"
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Você deseja instalar o Java na sua máquina (S/N)?"
