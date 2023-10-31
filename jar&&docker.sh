@@ -101,6 +101,7 @@ installJavaAndRunApplication() {
                 echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
                 sleep 2
                 # Executa o arquivo JAR
+                cd  SistemaWill/target
                 java -jar sistema-will-1.0-jar-with-dependencies.jar
             fi
         else
