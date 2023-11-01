@@ -40,7 +40,7 @@ installDockerAndMySQL() {
             sudo mysql
              CREATE USER 'aluno'@'localhost' IDENTIFIED BY 'aluno';
               GRANT ALL PRIVILEGES ON * . * TO 'aluno'@'localhost';
-              mysql -u aluno -p aluno < script.sql
+              sudo docker exec -i MagisterNowl mysql -ualuno -aluno magister < script.sql
             exit
             echo "Tabelas criadas com sucesso!"
             echo "Tudo configurado com sucesso!"
