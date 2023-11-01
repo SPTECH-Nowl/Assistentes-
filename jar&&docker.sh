@@ -29,7 +29,7 @@ installDockerAndMySQL() {
             sudo systemctl enable docker
             sleep 2
             sudo docker pull mysql:5.7
-            sudo docker run -d -p 3306:3306 --name MagisterNowl -e "MYSQL_DATABASE=magister" -e "MYSQL_ROOT_PASSWORD=aluno" mysql:5.7 
+            sudo docker run -d -p 3306:3306 --name MagisterNowl -e "MYSQL_DATABASE= magister" -e "MYSQL_ROOT_PASSWORD=aluno" mysql:5.7 
             sleep 10 
             sudo docker exec -i MagisterNowl mysql -u root -paluno magister < script.sql
             echo "Docker instalado com sucesso e container criado com sucesso!"
@@ -65,13 +65,13 @@ installJavaAndRunApplication() {
         sleep 2
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Agora iremos baixar nosso arquivo JAR..."
         # Baixa o arquivo JAR
-        git clone https://github.com/SPTECH-Nowl/SistemaWill.git
+       sudo  git clone https://github.com/SPTECH-Nowl/SistemaWill.git
         sleep 2
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
         sleep 2
         # Executa o arquivo JAR
          cd SistemaWill/src/main/java/target
-              java -jar sistema-will-1.0-jar-with-dependencies.jar
+             sudo java -jar sistema-will-1.0-jar-with-dependencies.jar
     else
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Não foi encontrada nenhuma versão do Java na sua máquina, mas iremos resolver isso!"
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Você deseja instalar o Java na sua máquina (S/N)?"
