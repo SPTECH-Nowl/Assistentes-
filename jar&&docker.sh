@@ -1,9 +1,10 @@
-
+#!/bin/bash
+# Define colors for formatting
 PURPLE='\033[0;35m'
 NC='\033[0m'
 VERSAO=17
 
-
+# Function to install Docker and MySQL container
 installDockerAndMySQL() {
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Olá Cliente, te ajudarei no processo para instalar o Docker e criar o Container com o MySQL 5.7"
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Vamos verificar primeiramente se você possui o Docker instalado..."
@@ -28,10 +29,9 @@ installDockerAndMySQL() {
             sudo systemctl enable docker
             sleep 2
             sudo docker pull mysql:5.7
-            sudo docker run -d -p 3306:3306 --name MagisterNowl -e "MYSQL_DATABASE=magister" -e "MYSQL_ROOT_PASSWORD=aluno" mysql:5.7
+            sudo docker run -d -p 3306:3306 --name MagisterNowl -e "MYSQL_DATABASE=magister" -e "MYSQL_ROOT_PASSWORD=aluno" mysql:5.7 < script.sql
             sudo docker exec -i MagisterNowl sudo mysql magister bash
             echo "Docker instalado com sucesso e container criado com sucesso!"
-            sudo mysql 
             sleep 2
             echo "Agora iremos criar as tabelas no banco de dados"
             sleep 2 
@@ -39,8 +39,6 @@ installDockerAndMySQL() {
             sudo mysql
              CREATE USER 'aluno'@'localhost' IDENTIFIED BY 'aluno';
               GRANT ALL PRIVILEGES ON * . * TO 'aluno'@'localhost';
-              exit
-              mysql -u aluno -p aluno < script.sql;
             exit
             echo "Tabelas criadas com sucesso!"
             echo "Tudo configurado com sucesso!"
@@ -50,6 +48,7 @@ installDockerAndMySQL() {
     fi
 }
 
+# Function to install Java and run the Java application
 installJavaAndRunApplication() {
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Olá usuário, serei seu assistente para instalação do Java!"
     echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Verificando se você possui o Java instalado na sua máquina!"
@@ -57,7 +56,6 @@ installJavaAndRunApplication() {
     # Verifica se o Java está instalado
     java -version
     if [ $? -eq 0 ]; then
-
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Você já possui o Java instalado na sua máquina!"
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Vamos atualizar os pacotes..."
         sudo apt update && sudo apt upgrade -y
@@ -69,12 +67,12 @@ installJavaAndRunApplication() {
         sleep 2
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Agora iremos baixar nosso arquivo JAR..."
         # Baixa o arquivo JAR
-       wget https://github.com/SPTECH-Nowl/SistemaWill/src/main/java/target/sistema-will-1.0-jar-with-dependencies.jar
+        git clone https://github.com/SPTECH-Nowl/SistemaWill.git
         sleep 2
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
         sleep 2
         # Executa o arquivo JAR
-              cd SistemaWill/src/main/java/target
+         cd SistemaWill/src/main/java/target
               java -jar sistema-will-1.0-jar-with-dependencies.jar
     else
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Não foi encontrada nenhuma versão do Java na sua máquina, mas iremos resolver isso!"
@@ -104,7 +102,7 @@ installJavaAndRunApplication() {
                 sleep 2
                 echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Agora iremos baixar nosso arquivo JAR..."
                 # Baixa o arquivo JAR
-                wget https://github.com/SPTECH-Nowl/SistemaWill/src/main/java/target/sistema-will-1.0-jar-with-dependencies.jar 
+                git clone https://github.com/SPTECH-Nowl/SistemaWill.git
                 sleep 2
                 echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
                 sleep 2
@@ -119,4 +117,6 @@ installJavaAndRunApplication() {
     fi
 }
 
-
+# Main script
+installDockerAndMySQL
+installJavaAndRunApplication
