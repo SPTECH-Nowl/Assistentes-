@@ -11,9 +11,9 @@ installDockerAndMySQL() {
     sleep 2
     docker -v
     if [ $? -eq 0 ]; then
-        echo ": O senhor(a) já tem o Docker instalado!!!"
+        echo "Você já tem o Docker instalado!"
     else
-        echo "Não identificamos nenhuma versão do Docker instalado, porém sem problemas, irei resolver isso agora mesmo!"
+        echo "Não identificamos nenhuma versão do Docker instalado, mas não se preocupe, irei resolver isso agora mesmo!"
         echo "Confirme para nosso sistema se realmente deseja instalar o Docker (S/N)?"
         read inst
         if [ "$inst" == "S" ]; then
@@ -30,18 +30,13 @@ installDockerAndMySQL() {
             sleep 2
             sudo docker pull mysql:5.7
             sudo docker run -d -p 3306:3306 --name MagisterNowl -e "MYSQL_DATABASE=magister" -e "MYSQL_ROOT_PASSWORD=aluno" mysql:5.7 
-            sudo docker exec -i MagisterNowl sudo mysql magister bash
+            sleep 10 
+            sudo docker exec -i MagisterNowl mysql -u root -paluno magister < script.sql
             echo "Docker instalado com sucesso e container criado com sucesso!"
-            sudo mysql 
-            sleep 2
             echo "Agora iremos criar as tabelas no banco de dados"
             sleep 2 
-            sudo apt install mysql-server
-            sudo mysql
-             CREATE USER 'aluno'@'localhost' IDENTIFIED BY 'aluno';
-              GRANT ALL PRIVILEGES ON * . * TO 'aluno'@'localhost';
-              sudo docker exec -i MagisterNowl mysql -ualuno -aluno magister < script.sql
-            exit
+            sudo apt install mysql-client -y
+            mysql -u root -paluno -h 127.0.0.1 -P 3306 magister < script.sql
             echo "Tabelas criadas com sucesso!"
             echo "Tudo configurado com sucesso!"
         else
@@ -49,6 +44,7 @@ installDockerAndMySQL() {
         fi
     fi
 }
+
 
 # Function to install Java and run the Java application
 installJavaAndRunApplication() {
