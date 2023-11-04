@@ -35,7 +35,7 @@ installDockerAndMySQL() {
             sleep 2
             echo "Agora iremos criar as tabelas no banco de dados"
             sleep 2
-            sudo docker exec -i MagisterNowl bash
+            sudo docker exec -it MagisterNowl bash
             echo "Tabelas criadas com sucesso!"
             echo "Tudo configurado com sucesso!"
         else
