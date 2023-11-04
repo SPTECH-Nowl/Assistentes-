@@ -64,7 +64,7 @@ installJavaAndRunApplication() {
         sleep 2
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Agora iremos baixar nosso arquivo JAR..."
         # Baixa o arquivo JAR
-       wget https://github.com/SPTECH-Nowl/SistemaWill/src/main/java/target/sistema-will-1.0-jar-with-dependencies.jar
+       wget https://github.com/SPTECH-Nowl/SistemaWill/target/sistema-will-1.0-jar-with-dependencies.jar
         sleep 2
         echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
         sleep 2
@@ -98,7 +98,7 @@ installJavaAndRunApplication() {
                 sleep 2
                 echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Agora iremos baixar nosso arquivo JAR..."
                 # Baixa o arquivo JAR
-                 wget https://github.com/SPTECH-Nowl/SistemaWill/src/main/java/target/sistema-will-1.0-jar-with-dependencies.jar
+                 wget https://github.com/SPTECH-Nowl/SistemaWill/target/sistema-will-1.0-jar-with-dependencies.jar
                 sleep 2
                 sleep 2
                 echo -e "${PURPLE}[SPTECH-Nowl]:${NC} Já temos o arquivo! Vamos executá-lo."
