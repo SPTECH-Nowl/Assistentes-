@@ -41,10 +41,11 @@ if ! command -v docker &> /dev/null; then
 
             show_message "Estamos quase acabando, só precisamos criar nossas tabelas do banco de dados!"
             sleep 2
+			sudo docker cp /home/ubuntu/Assistentes-app/script.sql magister:/script.sql
 
             # Certifique-se de que o arquivo "script.sql" existe no diretório atual
             if [ -e "script.sql" ]; then
-                sudo docker exec -i ContainerBancoDados mysql -uroot -paluno magister < script.sql
+                sudo docker exec -i ContainerBancoDados mysql -uroot -paluno magister < /script.sql
                 show_message "Tabelas criadas com sucesso!"
             else
                 show_message "Arquivo 'script.sql' não encontrado. As tabelas não puderam ser criadas."
@@ -108,4 +109,4 @@ show_message "Executando o arquivo JAR..."
 java -jar sistema-nowl-1.0-jar-with-dependencies.jar
 chmod +x sistema-nowl-1.0-jar-with-dependencies.jar
 
-show_message "Tudo configurado com sucesso, até a próxima!"
+show_message "Tudo configurado com sucesso, até a próxima!"
