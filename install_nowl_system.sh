@@ -45,7 +45,8 @@ if ! command -v docker &> /dev/null; then
 
             # Certifique-se de que o arquivo "script.sql" existe no diretório atual
             if [ -e "script.sql" ]; then
-                sudo docker exec -it ContainerBancoDados mysql -uroot -paluno magister < /script.sql
+                sudo docker exec -it ContainerBancoDados bash
+				mysql -uroot -paluno magister < /script.sql
                 show_message "Tabelas criadas com sucesso!"
             else
                 show_message "Arquivo 'script.sql' não encontrado. As tabelas não puderam ser criadas."
