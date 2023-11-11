@@ -15,7 +15,7 @@ if ! docker ps -a --format '{{.Names}}' | grep -q "magister"; then
    sudo docker run -d --name magister -e MYSQL_ROOT_PASSWORD=aluno -p 3306:3306 mysql:latest
 
     # Aguardar alguns segundos para o container ser criado e iniciado
-    sleep 10
+    
 
     # Copiar o script SQL para dentro do container
     sudo docker cp /home/ubuntu/Assistentes-app/script.sql magister:/script.sql
