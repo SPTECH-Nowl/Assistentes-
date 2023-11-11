@@ -12,7 +12,7 @@ systemctl enable docker
 # Verificar se o container MySQL já existe
 if ! docker ps -a --format '{{.Names}}' | grep -q "magister"; then
     # Criar e executar o container MySQL
-    docker run -d --name magister -e MYSQL_ROOT_PASSWORD=aluno -p 3306:3306 mysql:latest
+   sudo docker run -d --name magister -e MYSQL_ROOT_PASSWORD=aluno -p 3306:3306 mysql:latest
 
     # Aguardar alguns segundos para o container ser criado e iniciado
     sleep 10
