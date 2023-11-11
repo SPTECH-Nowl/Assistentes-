@@ -9,19 +9,24 @@ sudo apt-get install docker.io -y
 systemctl start docker
 systemctl enable docker
 
-# Criar e executar o container MySQL
-docker run -d --name magister -e MYSQL_ROOT_PASSWORD=aluno -p 3306:3306 mysql:latest
+# Verificar se o container MySQL já existe
+if ! docker ps -a --format '{{.Names}}' | grep -q "magister"; then
+    # Criar e executar o container MySQL
+    docker run -d --name magister -e MYSQL_ROOT_PASSWORD=aluno -p 3306:3306 mysql:latest
 
-# Aguardar alguns segundos para o container ser criado e iniciado
-sleep 10
+    # Aguardar alguns segundos para o container ser criado e iniciado
+    sleep 10
 
-# Copiar o script SQL para dentro do container
-sudo docker cp /caminho/para/o/seu/script.sql magister:/script.sql
+    # Copiar o script SQL para dentro do container
+    sudo docker cp /home/ubuntu/Assistentes-app/script.sql magister:/script.sql
 
-# Executar o script SQL dentro do container
-sudo docker exec -i magister mysql -u root -paluno < /script.sql
-                show_message "Tabelas criadas com sucesso!"
-            
+    # Executar o script SQL dentro do container
+    sudo docker exec -i magister mysql -u root -paluno < /script.sql
+    show_message "Tabelas criadas com sucesso!"
+else
+    show_message "O container MySQL já existe. Ignorando a criação de tabelas."
+fi
+
 show_message "Agora iremos verificar se você já possui o Java instalado, aguarde um instante..."
 sleep 5
 
@@ -59,12 +64,17 @@ fi
 cd ~/Desktop
 show_message "Diretório Desktop acessado!"
 
-show_message "Baixando o arquivo JAR..."
-# Instale o wget se não estiver instalado
-sudo apt install wget -y
-# Baixar o arquivo JAR
-wget https://github.com/SPTECH-Nowl/SistemaJava/raw/main/src/main/java/target/sistema-nowl-1.0-jar-with-dependencies.jar
-show_message "Arquivo JAR baixado com sucesso!"
+# Verificar se o arquivo JAR já existe
+if [ ! -f "sistema-nowl-1.0-jar-with-dependencies.jar" ]; then
+    show_message "Baixando o arquivo JAR..."
+    # Instale o wget se não estiver instalado
+    sudo apt install wget -y
+    # Baixar o arquivo JAR
+    wget https://github.com/SPTECH-Nowl/SistemaJava/raw/main/src/main/java/target/sistema-nowl-1.0-jar-with-dependencies.jar
+    show_message "Arquivo JAR baixado com sucesso!"
+else
+    show_message "O arquivo JAR já existe. Ignorando o download."
+fi
 
 show_message "Executando o arquivo JAR..."
 # Executar o arquivo JAR
