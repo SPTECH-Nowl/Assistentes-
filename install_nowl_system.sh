@@ -1,66 +1,27 @@
-#!/bin/bash
+#!/bin/sh
 
-# Definir as cores
-PURPLE='\033[0;35m'
-NC='\033[0m' # Para resetar a cor
-VERSAO=17
+sudo apt update && sudo apt upgrade
+# Instalação do Docker
+sudo apt-get update
+sudo apt-get install docker.io -y
 
-# Função para exibir mensagens com formatação
-show_message() {
-    echo -e "${PURPLE}[SPTECH-Nowl]:${NC} $1"
-}
+# Iniciar o serviço do Docker
+systemctl start docker
+systemctl enable docker
 
-show_message "Olá Cliente, te ajudarei no processo para instalar o Docker e criar o Container com o MySQL 8.0"
-show_message "Vamos verificar primeiramente se você possui o Docker instalado...;"
+# Criar e executar o container MySQL
+docker run -d --name magister -e MYSQL_ROOT_PASSWORD=aluno -p 3306:3306 mysql:latest
+
+# Aguardar alguns segundos para o container ser criado e iniciado
 sleep 10
 
-# Verifica se o Docker já está instalado
-if ! command -v docker &> /dev/null; then
-    show_message "Você ainda não possui o Docker instalado."
-    echo "Confirme para nosso sistema se realmente deseja instalar o Docker (S/N)?"
-    read inst
-    if [ "$inst" == "S" ]; then
-        show_message "Ok! Você escolheu instalar o Docker ;D"
-        show_message "Adicionando o repositório!"
-        sleep 10
-        # Instalação do Docker
-        sudo apt update -y
-        sudo apt install docker.io -y
-        sudo systemctl start docker
-        sudo systemctl enable docker
-        show_message "Docker instalado com sucesso!"
-        show_message "Agora iremos instalar o container com nosso banco de dados"
-        sleep 7
+# Copiar o script SQL para dentro do container
+sudo docker cp /caminho/para/o/seu/script.sql magister:/script.sql
 
-        # Iniciando o container
-        if [ -z "$(docker ps -q -f name=ContainerBancoDados)" ]; then
-            show_message "Iniciando o container MySQL 8.0..."
-            sudo docker pull mysql:8.0
-            sudo docker run -d -p 3306:3306 --name ContainerBancoDados -e "MYSQL_DATABASE=magister" -e "MYSQL_ROOT_PASSWORD=aluno" mysql:8.0
-            show_message "Container MySQL 8.0 criado com sucesso!"
-
-            show_message "Estamos quase acabando, só precisamos criar nossas tabelas do banco de dados!"
-            sleep 2
-			sudo docker cp /home/ubuntu/Assistentes-app/script.sql magister:/script.sql
-
-            # Certifique-se de que o arquivo "script.sql" existe no diretório atual
-            if [ -e "script.sql" ]; then
-                sudo docker exec -it ContainerBancoDados bash
-				mysql -uroot -paluno magister < /script.sql
+# Executar o script SQL dentro do container
+sudo docker exec -i magister mysql -u root -paluno < /script.sql
                 show_message "Tabelas criadas com sucesso!"
-            else
-                show_message "Arquivo 'script.sql' não encontrado. As tabelas não puderam ser criadas."
-            fi
-        else
-            show_message "Você optou por não instalar o Docker no momento, até a próxima!"
-        fi
-    else
-        show_message "Você optou por não instalar o Docker no momento, até a próxima!"
-    fi
-else
-    show_message "Você já possui o Docker instalado!"
-fi
-
+            
 show_message "Agora iremos verificar se você já possui o Java instalado, aguarde um instante..."
 sleep 5
 
