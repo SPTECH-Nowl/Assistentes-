@@ -6,8 +6,8 @@ sudo apt-get update
 sudo apt-get install docker.io -y
 
 # Iniciar o serviço do Docker
-systemctl start docker
-systemctl enable docker
+sudo systemctl start docker
+sudo systemctl enable docker
 
 # Verificar se o container MySQL já existe
 if ! docker ps -a --format '{{.Names}}' | grep -q "magister"; then
