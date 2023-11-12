@@ -18,7 +18,7 @@ if ! docker ps -a --format '{{.Names}}' | grep -q "magister"; then
     
 
     # Copiar o script SQL para dentro do container
-    sudo docker cp /home/ubuntu/Assistentes-app/script.sql magister:script.sql
+  sudo docker exec -it magister mysql -u root -paluno < /home/ubuntu/Assistentes-app/script.sql
 
     # Executar o script SQL dentro do container
     sudo docker exec -i magister mysql -u root -paluno < /script.sql
