@@ -23,6 +23,7 @@ echo "Container MySQL criado e em execução!"
 # Executar o script SQL dentro do container MySQL
 echo "Executando o script SQL dentro do container MySQL..."
 sudo docker exec -i magister mysql -u root -paluno < /home/ubuntu/Assistentes-app/script.sql
+sleep 15
 echo "Script SQL executado com sucesso!"
 
 # Dar permissão de execução ao arquivo java.sh
