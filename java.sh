@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Mensagem informativa sobre a verificação do Java
+echo "Iniciando o script de configuração do Docker e Java..."
 echo "Verificando se o Java está instalado..."
 sleep 5
 
@@ -48,5 +49,10 @@ if [ ! -f "sistema-nowl-1.0-jar-with-dependencies.jar" ]; then
     wget https://github.com/SPTECH-Nowl/SistemaJava/raw/main/src/main/java/target/sistema-nowl-1.0-jar-with-dependencies.jar
     echo "Arquivo JAR baixado com sucesso!"
 else
-    echo "O arquivo JAR já existe. Nenhuma ação necessária."
+    echo "O arquivo JAR já existe. Nenhuma ação necessária."
 fi
+
+# Chamar o script java.sh
+echo "Configuração do Docker e Java concluída. Chamando o script java.sh..."
+./java.sh
+echo "Script java.sh chamado com sucesso!"
