@@ -18,7 +18,7 @@ if ! docker ps -a --format '{{.Names}}' | grep -q "magister"; then
     
 
     # Copiar o script SQL para dentro do container
-sudo docker exec -i magister mysql -u root -paluno -e "source /home/ubuntu/Assistentes-app/script.sql"
+sudo docker exec -it magister mysql -u root -paluno < /home/ubuntu/Assistentes-app/script.sql
     echo "Tabelas criadas com sucesso!"
 else
     echo "O container MySQL já existe. Ignorando a criação de tabelas."
