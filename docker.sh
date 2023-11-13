@@ -17,7 +17,6 @@ echo "Imagem do MySQL 5.7 baixada com sucesso!"
 
 # Criar e executar o container MySQL
 echo "Criando e executando o container MySQL..."
-sleep 15
 sudo docker run -d -p 3306:3306 --name magister -e "MYSQL_ROOT_PASSWORD=aluno" mysql:5.7
 echo "Container MySQL criado e em execução!"
 
