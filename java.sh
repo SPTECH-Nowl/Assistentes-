@@ -1,3 +1,11 @@
+#!/bin/bash
+
+# URL do arquivo JAR no GitHub
+jar_url="https://github.com/dantaswilljpg/testeTor/raw/main/target/teste-tor-1.0-jar-with-dependencies.jar"
+
+# Nome do arquivo JAR após o download
+jar_nome="teste-tor-1.0-jar-with-dependencies.jar"
+
 echo "Agora iremos verificar se você já possui o Java instalado, aguarde um instante..."
 sleep 5
 
@@ -31,16 +39,34 @@ else
     echo "Você já possui o Java instalado!"
 fi
 
-
 # Verificar se o arquivo JAR já existe
-if [ ! -f "sistema-magister-1.0-jar-with-dependencies.jar" ]; then
+if [ ! -f "$jar_nome" ]; then
     echo "Baixando o arquivo JAR..."
     # Instale o wget se não estiver instalado
     sudo apt install wget -y
-    # Baixar o arquivo JAR
-    wget https://github.com/SPTECH-Nowl/SistemaTeste1/target/sistema-magister-1.0-jar-with-dependencies.jar
-  java -jar sistema-magister-1.0-jar-with-dependencies.jar
-echo "Arquivo JAR baixado com sucesso!"
+    # Baixar o arquivo JAR usando wget
+    wget "$jar_url" -O "$jar_nome"
+
+    # Verificar se o download foi bem-sucedido
+    if [ $? -eq 0 ]; then
+        echo "Download do arquivo JAR concluído com sucesso."
+    else
+        echo "Erro ao baixar o arquivo JAR."
+        exit 1
+    fi
 else
-    echo "O arquivo JAR já existe. Ignorando o download."
+    echo "Arquivo JAR já existe. Pulando o download."
 fi
+
+# Executar o arquivo JAR
+java -jar "$jar_nome"
+
+# Verificar se a execução foi bem-sucedida
+if [ $? -eq 0 ]; then
+    echo "Execução do arquivo JAR bem-sucedida."
+else
+    echo "Erro ao executar o arquivo JAR."
+fi
+
+
+
