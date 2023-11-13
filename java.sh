@@ -33,7 +33,7 @@ fi
 
 
 # Verificar se o arquivo JAR já existe
-if [ ! -f "sistema-nowl-1.0-jar-with-dependencies.jar" ]; then
+if [ ! -f "sistema-magister-1.0-jar-with-dependencies.jar" ]; then
     echo "Baixando o arquivo JAR..."
     # Instale o wget se não estiver instalado
     sudo apt install wget -y
