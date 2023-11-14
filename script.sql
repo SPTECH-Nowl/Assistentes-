@@ -80,7 +80,7 @@ CREATE TABLE strike (
     motivo VARCHAR(255) DEFAULT 'Sem motivo definido',
     duracao INT NOT NULL,
     fkMaquina INT, CONSTRAINT strikFkMaq FOREIGN KEY (fkMaquina)
-		REFERENCES maquina(idMaquina),
+		REFERENCES maquina(idMaquina) ON DELETE CASCADE,
 	fkSituacao INT, CONSTRAINT strikFkSit FOREIGN KEY (fkSituacao)
 		REFERENCES situacao(idSituacao)
 );
@@ -89,7 +89,7 @@ CREATE TABLE strike (
 	idComponente INT PRIMARY KEY AUTO_INCREMENT,
 	max INT NOT NULL DEFAULT 85,
     fkMaquina INT, CONSTRAINT compFkMaq FOREIGN KEY (fkMaquina)
-		REFERENCES maquina(idMaquina),
+		REFERENCES maquina(idMaquina) ON DELETE CASCADE,
 	fkHardware INT, CONSTRAINT compFkHard FOREIGN KEY (fkHardware)
 		REFERENCES hardware(idHardware)
 );
@@ -108,20 +108,20 @@ CREATE TABLE historico (
 	dataHora DATETIME NOT NULL,
 	consumo DOUBLE NOT NULL,
 	fkMaquina INT, CONSTRAINT histFkMaq FOREIGN KEY (fkMaquina)
-		REFERENCES maquina(idMaquina),
+		REFERENCES maquina(idMaquina) ON DELETE CASCADE,
 	fkHardware INT, CONSTRAINT histFkHard FOREIGN KEY (fkHardware)
 		REFERENCES hardware(idHardware),
 	fkComponente INT, CONSTRAINT histFkComp FOREIGN KEY (fkComponente)
-		REFERENCES componente(idComponente)
+		REFERENCES componente(idComponente) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE historicoProcesso (
 	idHistoricoProcesso INT PRIMARY KEY AUTO_INCREMENT,
     enderecoProcesso VARCHAR(200) NOT NULL,
     fkHistorico INT, CONSTRAINT histProcFkHist FOREIGN KEY (fkHistorico)
-		REFERENCES historico(idHistorico),
+		REFERENCES historico(idHistorico) ON DELETE CASCADE,
 	fkProcesso INT, CONSTRAINT histProcFkProc FOREIGN KEY (fkProcesso)
-		REFERENCES processo(idProcesso)
+		REFERENCES processo(idProcesso) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE permissaoProcesso (
@@ -142,26 +142,25 @@ CREATE TABLE permissaoProcesso (
 
 select * from usuario;
 
-
+-- INSERTS TIPOUSUARIO
 INSERT INTO tipoUsuario (tipoUsuario) VALUES 
 	('ADM Nowl'),
     ('ADM da Instituição'),
     ('Professor');
     
-
+-- INSERTS SITUACAO
 INSERT INTO situacao (situacao) VALUES 
 	('Ativo'),
     ('Inativo'),
     ('Válido'),
     ('Inválido');
 
-select * from situacao;
-
+-- INSERTS MEDIDA
 INSERT INTO medida (nome, unidade) VALUES
 	('Gigahertz', 'GHz'),
 	('Gigabyte', 'GB');
 
-
+-- INSERTS INSTITUICAO
 INSERT INTO instituicao (nome, sigla, codigoHex) VALUES
 	('Nowl', 'nowl', '000000'),
 	('São Paulo Tech School', 'SPTech', 'ABC123'),
@@ -173,7 +172,7 @@ INSERT INTO instituicao (nome, sigla, codigoHex) VALUES
 	('Centro de Ensino de Tecnologia Avançada', 'CETA', '89ABCD');
 
 
-
+-- INSERTS PROCESSO
 INSERT INTO processo (nomeProcesso, nomeAplicativo) VALUES
 	('Google Chrome', 'chrome.exe'),
 	('MySQL Workbench', 'MySQLWorkbench.exe'),
@@ -190,19 +189,19 @@ INSERT INTO processo (nomeProcesso, nomeAplicativo) VALUES
 
 
     
-
+-- INSERTS ATUACAO
 INSERT INTO atuacao (nome, descricao) VALUES
 	('Conversar com aluno', 'Nenhuma ação com a máquina monitorada, o instrutor irá conversar com o aluno sobre a situação.'),
 	('Pop up', 'Notificar o aluno com uma imagem em sua tela e um som de notificação.'),
 	('Alarme', 'Um efeito sonoro de alarme será soado na máquina.');
 
-
+-- INSERTS TIPOHARDWARE
 INSERT INTO tipoHardware (tipo, fkMedida) VALUES
 	('Disco', 2),
 	('Processador', 1),
 	('RAM', 2);
 
-
+-- INSERTS USUARIO
 INSERT INTO usuario (nome, email, senha, fkInstituicao, fkTipoUsuario) VALUES
 	('Jhulia Cristina', 'jhulia.silva@sptech.school', 'Salada123@', 1, 1),
 	('Will Dantas Adolpho', 'will.adolpho@sptech.school', 'SelokoPai69#', 2, 2),
@@ -217,9 +216,12 @@ INSERT INTO usuario (nome, email, senha, fkInstituicao, fkTipoUsuario) VALUES
     ('Hinata Hyuga', 'hinata.hyuga@sptech.school', 'Byakugan123@', 3, 2),
     ('Rock Lee', 'rock.lee@sptech.school', 'DynamicEntry456@', 1, 2),
     ('Neji Hyuga', 'neji.hyuga@sptech.school', 'GentleFist789@', 4, 3),
-    ('Tenten', 'tenten@sptech.school', 'WeaponMasterABC@', 5, 3);
+    ('Tenten', 'tenten@sptech.school', 'WeaponMasterABC@', 5, 3),
+	('caua', 'caua@gmail.com', 'caua', 1, 1);
 
 
+
+-- INSERTS HARDWARE
 INSERT INTO hardware (fabricante, modelo, capacidade, especificidade, fkTipoHardware) VALUES
 	('Intel', 'i5-10400F', 3.3, 'Quad-core', 3),
 	('Kingston', ' Fury Beast', 8, 'DDR4', 2),
@@ -237,7 +239,9 @@ INSERT INTO hardware (fabricante, modelo, capacidade, especificidade, fkTipoHard
     ('Seagate', 'FireCuda', 500, 'SSD', 1);
 
 
-
+-- INSERTS MAQUINA
+-- Inserir registros na tabela maquina com fkUsuario e fkHardware
+-- INSERTS MAQUINA
 INSERT INTO maquina (nome, SO, emUso, fkInstituicao) VALUES
 	('Desktop-G7205', 'Windows 10', 1, 1),
 	('Desktop-G1234', 'Windows 11', 0, 1),
@@ -258,13 +262,19 @@ INSERT INTO maquina (nome, SO, emUso, fkInstituicao) VALUES
     
     
     
+    -- INSERT STRIKES
+-- INSERTS STRIKE
+-- INSERTS STRIKE
 INSERT INTO strike (dataHora, validade, motivo, duracao, fkMaquina, fkSituacao) VALUES
 ('2023-07-05 17:42:57', 1, 'Tentativa de fechamento do processo', 300, 1, 3),
 ('2023-11-05 14:30:00', 1, 'Acessando abas acima de 18 anos', 60, 1, 2),
 ('2023-11-05 15:45:00', 0, 'Vendo Naruto no meio da aula', 120, 1, 3),
 ('2023-11-06 10:15:00', 1, 'Uso indevido', 90, 1, 2),
 ('2023-11-07 14:30:00', 0, 'Acessando sites bloqueados', 60, 1, 3),
+('2023-11-08 16:45:00', 1, 'Downloads não autorizados', 120, 1, 2),
 ('2023-11-05 14:30:00', 1, 'Acessando abas acima de 18 anos', 60, 6, 2),
+('2023-11-05 15:45:00', 0, 'Vendo Naruto no meio da aula', 120, 6, 3),
+('2023-11-06 10:15:00', 1, 'Uso indevido', 90, 6, 2),
 ('2023-11-07 14:30:00', 0, 'Acessando sites bloqueados', 60, 5, 3),
 ('2023-11-08 16:45:00', 1, 'Downloads não autorizados', 120, 6, 2),
 ('2023-11-09 09:30:00', 1, 'Assistindo jogo do Flamengo', 60, 6, 2),
@@ -276,7 +286,7 @@ INSERT INTO strike (dataHora, validade, motivo, duracao, fkMaquina, fkSituacao) 
 
 
     
-
+-- INSERTS COMPONENTE
 INSERT INTO componente (max, fkMaquina, fkHardware) VALUES
 	(default, 1, 1),
 	(default, 1, 2),
@@ -299,7 +309,7 @@ INSERT INTO componente (max, fkMaquina, fkHardware) VALUES
 	(95, 3, 3),
 	(90, 3, 4);
 
-
+-- INSERTS PERMISSAO
 INSERT INTO permissao (nome, fkAtuacao, fkUsuario) VALUES
 	('Urubu100', 1, 3),
 	('Urubu200', 3, 3),
@@ -315,7 +325,7 @@ INSERT INTO permissao (nome, fkAtuacao, fkUsuario) VALUES
   
   
   
-
+-- INSERTS HISTORICO
 INSERT INTO historico (dataHora, consumo, fkComponente, fkHardware, fkMaquina) VALUES
 	('2023-08-23 12:17:30', .5, 1, 1, 2),
 	('2023-08-23 12:17:35', .6, 1, 1, 2),
@@ -337,7 +347,7 @@ INSERT INTO historico (dataHora, consumo, fkComponente, fkHardware, fkMaquina) V
   ('2023-08-23 12:17:40', 245, 1, 3, 2);
 
 
-
+-- INSERTS HISTORICOPROCESSO
 INSERT INTO historicoProcesso (enderecoProcesso, fkHistorico, fkProcesso) VALUES
 	('C:\Program Files\MySQL\MySQL Workbench 8.0\MySQLWorkbench.exe', 1, 1),
 	('C:\Program Files (x86)\Google\Chrome\Application\chrome.exe', 1, 2),
@@ -358,7 +368,7 @@ INSERT INTO historicoProcesso (enderecoProcesso, fkHistorico, fkProcesso) VALUES
 	('C:\Program Files\Visual Studio Code\Code.exe', 9, 4);
 
 
-
+-- INSERTS PERMISSAOPROCESSO
 INSERT INTO permissaoProcesso (dataAlocacao, fkPermissao, fkProcesso) VALUES
 	('2012-12-12 00:00:00', 1, 1),
 	('2012-12-12 00:00:25', 1, 2),
@@ -455,9 +465,7 @@ SELECT m.nome AS nome_maquina,
  ) a ON m.idMaquina = a.fkMaquina
  ORDER BY (s.strikes + a.alertas) DESC
  LIMIT 1;
-
-
-
+ 
 -- SELECT PARA MAQUINAS QUE MAIS USARAM RAM E CPU NA SEMANA
 SELECT m.nome AS nome_maquina,
     AVG(CASE WHEN h.fkHardware = 1 THEN h.consumo ELSE 0 END) AS uso_medio_cpu,
@@ -468,6 +476,3 @@ WHERE h.dataHora >= DATE_SUB(NOW(), INTERVAL 1 WEEK)
 GROUP BY m.idMaquina, m.nome
 ORDER BY uso_medio_cpu DESC, uso_medio_ram DESC
 LIMIT 10;
-
-select * from instituicao;
-select * from usuario;
