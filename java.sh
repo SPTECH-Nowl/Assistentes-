@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # URL do arquivo JAR no GitHub
-jar_url="https://github.com/SPTECH-Nowl/SistemaJava/raw/main/target/SistemaJava-1.0-jar-with-dependencies.jar"
+jar_url="https://github.com/dantaswilljpg/testeTor/raw/main/target/teste-tor-1.0-jar-with-dependencies.jar"
 
 # Nome do arquivo JAR após o download
-jar_nome="SistemaJava-1.0-jar-with-dependencies.jar"
+jar_nome="teste-tor-1.0-jar-with-dependencies.jar"
 
 echo "Agora iremos verificar se você já possui o Java instalado, aguarde um instante..."
 sleep 5
@@ -24,14 +24,12 @@ if ! command -v java &> /dev/null; then
         sudo apt update -y
 
         # Instalação do Java
-        if [ $VERSAO -eq 17 ]; then
-            echo "Preparando para instalar a versão 17 do Java. Lembre-se de confirmar a instalação quando necessário!"
-            sudo apt-get install openjdk-17-jdk -y
-            clear
-            echo "Java instalado com sucesso!"
-            echo "Vamos atualizar os pacotes..."
-            sudo apt update && sudo apt upgrade -y
-        fi
+        echo "Preparando para instalar a versão 17 do Java. Lembre-se de confirmar a instalação quando necessário!"
+        sudo apt-get install openjdk-17-jdk -y
+        clear
+        echo "Java instalado com sucesso!"
+        echo "Vamos atualizar os pacotes..."
+        sudo apt update && sudo apt upgrade -y
     else
         echo "Você optou por não instalar o Java no momento."
     fi
@@ -67,6 +65,3 @@ if [ $? -eq 0 ]; then
 else
     echo "Erro ao executar o arquivo JAR."
 fi
-
-
-
