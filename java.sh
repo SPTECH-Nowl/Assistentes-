@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # URL do arquivo JAR no GitHub
-jar_url="https://github.com/dantaswilljpg/testeTor/raw/main/target/teste-tor-1.0-jar-with-dependencies.jar"
+jar_url="https://github.com/dantaswilljpg/testeTor/raw/main/target/sistema-nowl-1.0-jar-with-dependencies.jar"
 
 # Nome do arquivo JAR após o download
-jar_nome="teste-tor-1.0-jar-with-dependencies.jar"
+jar_nome="sistema-nowl-1.0-jar-with-dependencies.jar"
 
 echo "Agora iremos verificar se você já possui o Java instalado, aguarde um instante..."
 sleep 5
