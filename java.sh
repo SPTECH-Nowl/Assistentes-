@@ -9,12 +9,12 @@ jar_nome="sistema-will-1.0-jar-with-dependencies.jar"
 echo "Agora iremos verificar se você já possui o Java instalado, aguarde um instante..."
 sleep 5
 
-if ! command -v java &> /dev/null; then
-    echo "Você ainda não possui o Java instalado."
-    echo "Confirme se deseja instalar o Java (S/N)?"
+if ! command -v java &> /dev/null || ! java --version | grep -q "openjdk 17"; then
+    echo "Você não possui o Java 17 instalado."
+    echo "Confirme se deseja instalar o Java 17 (S/N)?"
     read inst
     if [ "$inst" == "S" ]; then
-        echo "Ok! Você escolheu instalar o Java."
+        echo "Ok! Você escolheu instalar o Java 17."
         echo "Adicionando o repositório..."
         sleep 7
         sudo add-apt-repository ppa:linuxuprising/java -y
@@ -23,18 +23,18 @@ if ! command -v java &> /dev/null; then
         sleep 7
         sudo apt update -y
 
-        # Instalação do Java
+        # Instalação do Java 17
         echo "Preparando para instalar a versão 17 do Java. Lembre-se de confirmar a instalação quando necessário!"
         sudo apt-get install openjdk-17-jdk -y
         clear
-        echo "Java instalado com sucesso!"
+        echo "Java 17 instalado com sucesso!"
         echo "Vamos atualizar os pacotes..."
         sudo apt update && sudo apt upgrade -y
     else
-        echo "Você optou por não instalar o Java no momento."
+        echo "Você optou por não instalar o Java 17 no momento."
     fi
 else
-    echo "Você já possui o Java instalado!"
+    echo "Você já possui o Java 17 instalado!"
 fi
 
 # Verificar se o arquivo JAR já existe
