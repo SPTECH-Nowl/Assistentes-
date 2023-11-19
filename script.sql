@@ -42,7 +42,7 @@ CREATE TABLE tipoHardware (
     fkMedida INT, CONSTRAINT tipoHardFkMed FOREIGN KEY (fkMedida)
 		REFERENCES medida(idMedida)
 );
-select * from maquina;
+
 CREATE TABLE usuario (
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(50) NOT NULL,
@@ -142,7 +142,6 @@ CREATE TABLE permissaoProcesso (
 
 -- dados mocados para teste java
 
-select * from usuario;
 
 -- INSERTS TIPOUSUARIO
 INSERT INTO tipoUsuario (tipoUsuario) VALUES 
