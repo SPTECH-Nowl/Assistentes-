@@ -14,13 +14,11 @@ sudo systemctl enable docker
 # Instalar o kubectl
 echo "Instalando o kubectl..."
 sudo apt-get update
-sudo apt-get install -y apt-transport-https gnupg
-sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+sudo apt-get install -y apt-transport-https gnupg curl
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/kubernetes-archive-keyring.gpg add -
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
 sudo apt-get update
-
-# Importar a chave GPG
-gpg --no-default-keyring --keyring /usr/share/keyrings/kubernetes-archive-keyring.gpg --import /usr/share/keyrings/kubernetes-archive-keyring.gpg
+sudo apt-get install -y kubectl
 
 # Aguardar alguns segundos para garantir que o Kubernetes esteja pronto
 sleep 15
