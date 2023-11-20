@@ -18,8 +18,9 @@ sudo apt-get install -y apt-transport-https gnupg
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
 sudo apt-get update
-sudo apt-get install -y kubectl
-echo "kubectl instalado com sucesso!"
+
+# Importar a chave GPG
+gpg --no-default-keyring --keyring /usr/share/keyrings/kubernetes-archive-keyring.gpg --import /usr/share/keyrings/kubernetes-archive-keyring.gpg
 
 # Aguardar alguns segundos para garantir que o Kubernetes esteja pronto
 sleep 15
