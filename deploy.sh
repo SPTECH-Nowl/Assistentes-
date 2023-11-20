@@ -1,6 +1,12 @@
 #!/bin/bash
 
 
+# Instalando kubcetl
+echo "Instalando kubectl ..."
+
+sudo apt-get update && sudo apt-get install -y kubectl
+
+sleep 15
 
 # Aplicar os manifestos Kubernetes antes de executar Docker e Java
 echo "Aplicando manifestos Kubernetes..."
