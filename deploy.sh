@@ -1,11 +1,27 @@
 #!/bin/bash
 
+# Instalar o Docker
+echo "Instalando o Docker..."
+sudo apt-get update
+sudo apt-get install -y docker.io
+echo "Docker instalado com sucesso!"
 
-# Instalando kubcetl
-echo "Instalando kubectl ..."
+# Iniciar o serviço do Docker
+echo "Iniciando o serviço do Docker..."
+sudo systemctl start docker
+sudo systemctl enable docker
 
-sudo apt-get update && sudo apt-get install -y kubectl
+# Instalar o kubectl
+echo "Instalando o kubectl..."
+sudo apt-get update
+sudo apt-get install -y apt-transport-https gnupg
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
+sudo apt-get update
+sudo apt-get install -y kubectl
+echo "kubectl instalado com sucesso!"
 
+# Aguardar alguns segundos para garantir que o Kubernetes esteja pronto
 sleep 15
 
 # Aplicar os manifestos Kubernetes antes de executar Docker e Java
@@ -13,18 +29,15 @@ echo "Aplicando manifestos Kubernetes..."
 kubectl apply -f mysql-deployment.yaml
 kubectl apply -f java-deployment.yaml
 
-
 # Aguardar a implantação completa (pode variar dependendo do ambiente)
 echo "Aguardando a implantação completa..."
-sleep 15
+sleep 30
 
 # Exibir informações sobre os serviços e pods antes de executar Docker e Java
 echo "Informações sobre serviços (antes):"
-sleep 15
 kubectl get services
 
 echo "Informações sobre pods (antes):"
-sleep 15
 kubectl get pods
 
 # Executar o script Docker
