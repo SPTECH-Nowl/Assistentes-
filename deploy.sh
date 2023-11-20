@@ -24,7 +24,9 @@ sudo apt-get install -y kubectl
 sleep 15
 
 # Aplicar os manifestos Kubernetes antes de executar Docker e Java
-echo "Aplicando manifestos Kubernetes..."
+echo "Aplicando manifestos Kubernetes..." 
+chmod +x  mysql-deployment.yaml &&  chmod +x java-deployment.yaml
+sleep 15
 kubectl apply -f mysql-deployment.yaml
 kubectl apply -f java-deployment.yaml
 
