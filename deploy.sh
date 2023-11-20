@@ -15,7 +15,7 @@ sudo systemctl enable docker
 echo "Instalando o kubectl..."
 sudo apt-get update
 sudo apt-get install -y apt-transport-https gnupg curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/kubernetes-archive-keyring.gpg add -
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/kubernetes-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
 sudo apt-get update
 sudo apt-get install -y kubectl
@@ -47,16 +47,15 @@ chmod +x ./docker.sh
 # Aguardar alguns segundos para garantir que o MySQL esteja pronto
 sleep 15
 
-# Executar o script Java
-echo "Executando o script Java..."
-chmod +x ./java.sh
-./java.sh
-
-# Aguardar mais alguns segundos para garantir que o Java esteja pronto
-
 # Exibir informações sobre os serviços e pods após a execução de Docker e Java
 echo "Informações sobre serviços (depois):"
 kubectl get services
 
 echo "Informações sobre pods (depois):"
 kubectl get pods
+
+
+# Executar o script Java
+echo "Executando o script Java..."
+chmod +x ./java.sh
+./java.sh 
