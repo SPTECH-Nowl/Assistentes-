@@ -16,7 +16,7 @@ spec:
       - name: java-container
         image: your-java-image:tag
         ports:
-        - containerPort: 3306
+        - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -27,6 +27,6 @@ spec:
     app: java
   ports:
     - protocol: TCP
-      port: 3306
-      targetPort: 3306
+      port: 8080
+      targetPort: 8080
   type: LoadBalancer
