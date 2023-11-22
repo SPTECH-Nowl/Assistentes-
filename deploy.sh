@@ -15,15 +15,8 @@ check_port() {
 echo "Configurando o contexto do Kubernetes..."
 current_context=$(kubectl config current-context)
 if [ -z "$current_context" ]; then
-  kubeconfig_path=$(kubectl config view --minify -o jsonpath='{.contexts[0].context.cluster.kubeconfig}')
-  if [ -n "$kubeconfig_path" ]; then
-    current_context=$(kubectl config view --kubeconfig="$kubeconfig_path" --minify -o jsonpath='{.contexts[0].name}')
-    kubectl config use-context "$current_context" --kubeconfig="$kubeconfig_path"
-    echo "Contexto do Kubernetes configurado para: $current_context"
-  else
-    echo "Erro: Não foi possível determinar o contexto do Kubernetes. Verifique sua configuração."
-    exit 1
-  fi
+  echo "Erro: O contexto do Kubernetes não está configurado. Configure o contexto usando 'kubectl config use-context CONTEXT_NAME'."
+  exit 1
 else
   echo "Contexto do Kubernetes configurado para: $current_context"
 fi
