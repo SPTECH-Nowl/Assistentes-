@@ -11,15 +11,9 @@ check_port() {
   echo "A porta $port está acessível em $host. Continuando..."
 }
 
-# Verificar se o contexto do Kubernetes está configurado corretamente
-echo "Verificando o contexto do Kubernetes..."
-current_context=$(kubectl config current-context)
-if [ -z "$current_context" ]; then
-  echo "Erro: O contexto do Kubernetes não está configurado. Configure o contexto usando 'kubectl config use-context CONTEXT_NAME'."
-  exit 1
-else
-  echo "Contexto do Kubernetes configurado para: $current_context"
-fi
+# Configurar o contexto do Kubernetes automaticamente (assumindo um único contexto)
+echo "Configurando o contexto do Kubernetes..."
+kubectl config use-context $(kubectl config get-contexts -o name)
 
 # Aplicar os manifestos Kubernetes antes de executar Docker e Java
 echo "Aplicando manifestos Kubernetes..." 
