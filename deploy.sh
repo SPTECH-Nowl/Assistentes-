@@ -56,8 +56,17 @@ kubectl get services
 echo "Informações sobre pods (depois):"
 kubectl get pods
 
+# Verificar a acessibilidade da porta 8080 antes de executar o script Java
+echo "Verificando a acessibilidade da porta 8080..."
+
+while ! nc -z localhost 8080; do
+  echo "A porta 8080 não está acessível. Aguardando..."
+  sleep 5
+done
+
+echo "A porta 8080 está acessível. Continuando..."
 
 # Executar o script Java
 echo "Executando o script Java..."
 chmod +x ./java.sh
-./java.sh 
+./java.sh
