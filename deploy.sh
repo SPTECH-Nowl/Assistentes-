@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Função para verificar a disponibilidade de uma porta
+check_port() {
+  local host=$1
+  local port=$2
+  while ! nc -z "$host" "$port"; do
+    echo "A porta $port não está acessível em $host. Aguardando..."
+    sleep 5
+  done
+  echo "A porta $port está acessível em $host. Continuando..."
+}
+
 # Instalar o Docker
 echo "Instalando o Docker..."
 sudo apt-get update
@@ -21,12 +32,12 @@ sudo apt-get update
 sudo apt-get install -y kubectl
 
 # Aguardar alguns segundos para garantir que o Kubernetes esteja pronto
+echo "Aguardando a inicialização do Kubernetes..."
 sleep 15
 
 # Aplicar os manifestos Kubernetes antes de executar Docker e Java
 echo "Aplicando manifestos Kubernetes..." 
-chmod +x  mysql-deployment.yaml &&  chmod +x java-deployment.yaml
-sleep 15
+chmod +x mysql-deployment.yaml && chmod +x java-deployment.yaml
 kubectl apply -f mysql-deployment.yaml
 kubectl apply -f java-deployment.yaml
 
@@ -47,6 +58,7 @@ chmod +x ./docker.sh
 ./docker.sh
 
 # Aguardar alguns segundos para garantir que o MySQL esteja pronto
+echo "Aguardando a inicialização do MySQL..."
 sleep 15
 
 # Exibir informações sobre os serviços e pods após a execução de Docker e Java
@@ -58,13 +70,7 @@ kubectl get pods
 
 # Verificar a acessibilidade da porta 8080 antes de executar o script Java
 echo "Verificando a acessibilidade da porta 8080..."
-
-while ! nc -z localhost 8080; do
-  echo "A porta 8080 não está acessível. Aguardando..."
-  sleep 5
-done
-
-echo "A porta 8080 está acessível. Continuando..."
+check_port "localhost" "8080"
 
 # Executar o script Java
 echo "Executando o script Java..."
