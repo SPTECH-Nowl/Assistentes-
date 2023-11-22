@@ -16,7 +16,7 @@ spec:
       - name: java-container
         image: your-java-image:tag
         ports:
-        - containerPort: 8080
+        - containerPort: 8080  # Altere para a porta correta do seu aplicativo Java
 ---
 apiVersion: v1
 kind: Service
@@ -27,6 +27,6 @@ spec:
     app: java
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
+      port: 8080  # Altere para a porta correta do seu aplicativo Java
+      targetPort: 8080  # Altere para a porta correta do seu aplicativo Java
   type: LoadBalancer
