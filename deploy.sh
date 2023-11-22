@@ -11,29 +11,15 @@ check_port() {
   echo "A porta $port está acessível em $host. Continuando..."
 }
 
-# Instalar o Docker
-echo "Instalando o Docker..."
-sudo apt-get update
-sudo apt-get install -y docker.io
-echo "Docker instalado com sucesso!"
-
-# Iniciar o serviço do Docker
-echo "Iniciando o serviço do Docker..."
-sudo systemctl start docker
-sudo systemctl enable docker
-
-# Instalar o kubectl
-echo "Instalando o kubectl..."
-sudo apt-get update
-sudo apt-get install -y apt-transport-https gnupg curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/kubernetes-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
-sudo apt-get update
-sudo apt-get install -y kubectl
-
-# Aguardar alguns segundos para garantir que o Kubernetes esteja pronto
-echo "Aguardando a inicialização do Kubernetes..."
-sleep 15
+# Verificar se o contexto do Kubernetes está configurado corretamente
+echo "Verificando o contexto do Kubernetes..."
+current_context=$(kubectl config current-context)
+if [ -z "$current_context" ]; then
+  echo "Erro: O contexto do Kubernetes não está configurado. Configure o contexto usando 'kubectl config use-context CONTEXT_NAME'."
+  exit 1
+else
+  echo "Contexto do Kubernetes configurado para: $current_context"
+fi
 
 # Aplicar os manifestos Kubernetes antes de executar Docker e Java
 echo "Aplicando manifestos Kubernetes..." 
