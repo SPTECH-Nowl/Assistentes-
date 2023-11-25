@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # URL do arquivo JAR no GitHub
-jar_url="https://github.com/SPTECH-Nowl/SistemaWillOficial/raw/main/target/sistema-will-1.0-jar-with-dependencies.jar"
+jar_url="https://github.com/SPTECH-Nowl/SistemaJava/blob/main/target/sistema-nowl-1.0-jar-with-dependencies.jar"
 
 # Nome do arquivo JAR após o download
-jar_nome="sistema-will-1.0-jar-with-dependencies.jar"
+jar_nome="sistema-nowl-1.0-jar-with-dependencies.jar"
 
 echo "Agora iremos verificar se você já possui o Java instalado, aguarde um instante..."
 sleep 5
