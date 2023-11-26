@@ -1,64 +1,58 @@
 #!/bin/bash
 
-# Função para verificar a disponibilidade de uma porta
-check_port() {
-  local host=$1
-  local port=$2
-  while ! nc -z "$host" "$port"; do
-    echo "A porta $port não está acessível em $host. Aguardando..."
-    sleep 5
-  done
-  echo "A porta $port está acessível em $host. Continuando..."
-}
-
-# Configurar o contexto do Kubernetes automaticamente
-echo "Configurando o contexto do Kubernetes..."
-current_context=$(kubectl config current-context)
-if [ -z "$current_context" ]; then
-  echo "Erro: O contexto do Kubernetes não está configurado. Configure o contexto usando 'kubectl config use-context CONTEXT_NAME'."
-  exit 1
-else
-  echo "Contexto do Kubernetes configurado para: $current_context"
+# Verificar se o whiptail está instalado
+if ! command -v whiptail &> /dev/null; then
+    echo "Instalando whiptail..."
+    sudo apt-get install -y whiptail
 fi
 
-# Aplicar os manifestos Kubernetes antes de executar Docker e Java
-echo "Aplicando manifestos Kubernetes..." 
-chmod +x mysql-deployment.yaml && chmod +x java-deployment.yaml
-kubectl apply -f mysql-deployment.yaml
-kubectl apply -f java-deployment.yaml
+# Função para instalar o Docker
+install_docker() {
+    whiptail --title "Instalação do Docker" --msgbox "Instalando o Docker..." 10 50
+    sudo apt install docker.io
+    whiptail --title "Instalação do Docker" --msgbox "Docker instalado com sucesso!" 10 50
 
-# Aguardar a implantação completa (pode variar dependendo do ambiente)
-echo "Aguardando a implantação completa..."
-sleep 30
+    whiptail --title "Instalação do Docker" --msgbox "Iniciando o serviço do Docker..." 10 50
+    sudo systemctl start docker
+    sudo systemctl enable docker
 
-# Exibir informações sobre os serviços e pods antes de executar Docker e Java
-echo "Informações sobre serviços (antes):"
-kubectl get services
+    whiptail --title "Instalação do Docker" --msgbox "Baixando a imagem do MySQL 5.7..." 10 50
+    sudo docker pull mysql:5.7
+    whiptail --title "Instalação do Docker" --msgbox "Imagem do MySQL 5.7 baixada com sucesso!" 10 50
 
-echo "Informações sobre pods (antes):"
-kubectl get pods
+    whiptail --title "Instalação do Docker" --msgbox "Criando e executando o container MySQL..." 10 50
+    sudo docker run -d -p 3306:3306 --name magister -e "MYSQL_ROOT_PASSWORD=aluno" mysql:5.7
+    whiptail --title "Instalação do Docker" --msgbox "Container MySQL criado e em execução!" 10 50
 
-# Executar o script Docker
-echo "Executando o script Docker..."
-chmod +x ./docker.sh
-./docker.sh
+    whiptail --title "Instalação do Docker" --msgbox "Executando o script SQL dentro do container MySQL..." 10 50
+    sleep 15
+    sudo docker exec -i magister mysql -u root -paluno < /home/ubuntu/Assistentes-app/script.sql
+    whiptail --title "Instalação do Docker" --msgbox "Script SQL executado com sucesso!" 10 50
 
-# Aguardar alguns segundos para garantir que o MySQL esteja pronto
-echo "Aguardando a inicialização do MySQL..."
-sleep 15
+    whiptail --title "Instalação do Docker" --msgbox "Dando permissão de execução ao arquivo java.sh..." 10 50
+    chmod +x java.sh
+    whiptail --title "Instalação do Docker" --msgbox "Permissão concedida com sucesso!" 10 50
 
-# Exibir informações sobre os serviços e pods após a execução de Docker e Java
-echo "Informações sobre serviços (depois):"
-kubectl get services
+    whiptail --title "Instalação do Docker" --msgbox "Executando o arquivo java.sh..." 10 50
+    ./java.sh
+    whiptail --title "Instalação do Docker" --msgbox "Arquivo java.sh executado com sucesso!" 10 50
+}
 
-echo "Informações sobre pods (depois):"
-kubectl get pods
+# Menu de opções usando whiptail
+option=$(whiptail --title "Menu" --menu "Escolha uma opção:" 15 50 5 \
+    1 "Instalar Docker e configurar MySQL" \
+    2 "Sair" \
+    3>&1 1>&2 2>&3)
 
-# Verificar a acessibilidade da porta 8080 antes de executar o script Java
-echo "Verificando a acessibilidade da porta 8080..."
-check_port "localhost" "8080"
-
-# Executar o script Java
-echo "Executando o script Java..."
-chmod +x ./java.sh
-./java.sh
+# Verificando a opção selecionada
+case $option in
+    1)
+        install_docker
+        ;;
+    2)
+        whiptail --title "Saindo" --msgbox "Saindo do script. Nenhuma ação realizada." 10 50
+        ;;
+    *)
+        whiptail --title "Erro" --msgbox "Opção inválida. Saindo do script." 10 50
+        ;;
+esac
