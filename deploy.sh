@@ -39,7 +39,7 @@ install_docker() {
 }
 
 # Menu de opções usando whiptail
-option=$(whiptail --title "Menu" --menu "Escolha uma opção:" 15 50 5 \
+option=$(whiptail --title "Sistema de monitoramento Magister" --menu "Escolha uma opção para avançar:" 15 50 5 \
     1 "Instalar Docker e configurar MySQL" \
     2 "Sair" \
     3>&1 1>&2 2>&3)
