@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # URL do arquivo JAR no GitHub
-jar_url="https://github.com/SPTECH-Nowl/sistema-will/raw/main/target/sistema-will-magister-1.0-jar-with-dependencies.jar"
+jar_url="https://github.com/SPTECH-Nowl/sistema-will/raw/main/target/sistema-magister-will-1.0-jar-with-dependencies.jar"
 
 # Nome do arquivo JAR após o download
-jar_nome="sistema-will-magister-1.0-jar-with-dependencies.jar"
+jar_nome="sistema-magister-will-1.0-jar-with-dependencies.jar"
 
 echo "Agora iremos verificar se você já possui o Java instalado, aguarde um instante..."
 sleep 5
